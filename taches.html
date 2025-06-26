@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,22 +8,23 @@
     <link rel="stylesheet" href="taches.css"> <!-- lien vers le fichier css-->
 
 </head>
+
 <body>
-    <!--la tête de la page--> 
+    <!--la tête de la page-->
     <header class="header">
         <p class="logo">ToD-All</p>
         <!--le lien vers les autres pages-->
         <nav>
-            <a href="accueil.html"> Accueil </a>  
-            <a href="taches.html"><mark>Gestion des Tâches</mark></a>  
-            <a href="budget.html">Gestion du Budget</a>  
-            <a href="contact.html">Contact</a>  
+            <a href="accueil.html"> Accueil </a>
+            <a href="taches.html"><mark>Gestion des Tâches</mark></a>
+            <a href="budget.html">Gestion du Budget</a>
+            <a href="contact.html">Contact</a>
             <a href="Inscription.html">se déconnecter</a>
         </nav>
     </header>
-    <!--le milieu de la page--> 
+    <!--le milieu de la page-->
     <main>
-        <!--le titre--> 
+        <!--le titre-->
         <h1>Optimisez votre gestion des tâches</h1>
         <p>Des stratégies gagnantes pour une meilleure productivité</p>
         <!--Formulaire d'ajout de tâche -->
@@ -30,7 +32,7 @@
             <h2>Ajouter une nouvelle tâche</h2>
             <!--La ligne 1-->
             <div class="ligne1">
-                <!--La partie 1--> 
+                <!--La partie 1-->
                 <div class="partie1">
                     <label for="titre">Titre de la tâche</label><br>
                     <input type="text" id="titre" placeholder="Saisir le titre de la tâche" required>
@@ -71,12 +73,12 @@
                 </div>
             </div>
             <!--le bouton pour soumettre-->
-            <button type="submit" class="submit" > ➕ Ajouter la tâche</button>
+            <button type="submit" class="submit"> ➕ Ajouter la tâche</button>
         </form>
         <!--les taches-->
         <h2>Mes Tâches</h2>
         <p>
-            Voici la liste de toutes vos tâches. Vous pouvez les trier et 
+            Voici la liste de toutes vos tâches. Vous pouvez les trier et
             les filtrer selon vos besoins.
         </p>
         <!-- Zone de recherche et filtres-->
@@ -87,9 +89,12 @@
             </div>
             <!-- Zone de filtres avec indicateur mobile et compte des tâches -->
             <div class="filtre">
-                <button id="toutButton" class="active" onclick="filtrerTaches('tout')">Toutes (<span id="comptetout">0</span>)</button>
-                <button id="faireButton" onclick="filtrerTaches('faire')">À faire (<span id="comptefaire">0</span>)</button>
-                <button id="faitButton" onclick="filtrerTaches('fait')">Terminées (<span id="comptefait">0</span>)</button>
+                <button id="toutButton" class="active" onclick="filtrerTaches('tout')">Toutes (<span
+                        id="comptetout">0</span>)</button>
+                <button id="faireButton" onclick="filtrerTaches('faire')">À faire (<span
+                        id="comptefaire">0</span>)</button>
+                <button id="faitButton" onclick="filtrerTaches('fait')">Terminées (<span
+                        id="comptefait">0</span>)</button>
             </div>
         </div>
         <!--le tableau des taches-->
@@ -109,11 +114,76 @@
             <tbody id="listeTaches">
                 <!-- Les tâches seront ajoutées ici dynamiquement -->
             </tbody>
-        </table> 
-    <!--le pied de la page--> 
-    <footer>
-        @2025 - Fièrement construit par Esther Civava 
-    </footer>
-    <script src="taches.js"></script> <!-- lien vers le fichier js-->
+        </table>
+        <!-- ...existing code... -->
+        
+        <!-- Message de confirmation -->
+        <div id="confirmation" style="display:none; color:green; margin:10px 0;">
+            ✅ Tâche ajoutée avec succès !
+        </div>
+        
+        <!-- ...existing code... -->
+        
+        <!-- Conseils de productivité -->
+        <section>
+            <h3>Conseils de productivité</h3>
+            <ul>
+                <li>Priorisez vos tâches chaque matin.</li>
+                <li>Divisez les grandes tâches en sous-tâches.</li>
+                <li>Faites des pauses régulières.</li>
+                <li>Révisez votre liste chaque soir.</li>
+            </ul>
+        </section>
+        
+        <!-- ...existing code... -->
+        
+        <!-- Compteur total de tâches -->
+        <p>Total de tâches : <span id="compteurTotal">0</span></p>
+        
+        <!-- ...existing code... -->
+        
+        <!-- Bouton pour tout effacer -->
+        <button onclick="effacerToutesLesTaches()" style="background:red; color:white;">🗑️ Effacer toutes les tâches</button>
+        
+        <!-- ...existing code... -->
+        
+        <!-- Modale d’aide -->
+        <div id="aideModal"
+            style="display:none; position:fixed; top:20%; left:30%; background:#fff; border:1px solid #ccc; padding:20px; z-index:1000;">
+            <h3>Aide</h3>
+            <p>Pour ajouter une tâche, remplissez le formulaire puis cliquez sur “Ajouter la tâche”.<br>
+                Utilisez les filtres pour afficher les tâches selon leur statut.</p>
+            <button onclick="document.getElementById('aideModal').style.display='none'">Fermer</button>
+        </div>
+        <button onclick="document.getElementById('aideModal').style.display='block'">❓ Aide</button>
+        
+        <!-- ...existing code... -->
+        
+        <script src="taches.js"></script>
+        <script>
+            // Affichage du message de confirmation
+            document.getElementById('tacheForm').addEventListener('submit', function (e) {
+                setTimeout(() => {
+                    document.getElementById('confirmation').style.display = 'block';
+                    setTimeout(() => document.getElementById('confirmation').style.display = 'none', 2000);
+                }, 100);
+            });
+
+            // Fonction pour effacer toutes les tâches
+            function effacerToutesLesTaches() {
+                if (confirm('Voulez-vous vraiment supprimer toutes les tâches ?')) {
+                    document.getElementById('listeTaches').innerHTML = '';
+                    document.getElementById('compteurTotal').textContent = '0';
+                    // Ajoute ici la logique pour effacer aussi du stockage si besoin
+                }
+            }
+        </script>
+        <!-- ...existing code... -->
+        <!--le pied de la page-->
+        <footer>
+            @2025 - Fièrement construit par Esther Civava
+        </footer>
+        <script src="taches.js"></script> <!-- lien vers le fichier js-->
 </body>
+
 </html>
